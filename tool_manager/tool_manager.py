@@ -29,21 +29,31 @@ def start():
 
 # print the default table of records from the file
 def show_table(table):
-
+    table = data_manager.get_table_from_file(table)
+    table_str = ""
+    for item in range(len(table)):
+        table_str += str(table[item]) + ("\n")
+    return table_str
     # your code
-
-    pass
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
+
+
 def add(table):
+    table = data_manager.get_table_from_file(table)
+    record = ui.get_inputs(["name: ", "producer: ", "year: ", "number of pieces: "], " ")
+    record.insert(0, common.generate_random(table))
+    table.append(record)
+    data_manager.write_table_to_file("tools.csv", table)
 
     # your code
 
     return table
 
-
 # Remove the record having the id @id_ from the @list, than return @table
+
+
 def remove(table, id_):
 
     # your code
