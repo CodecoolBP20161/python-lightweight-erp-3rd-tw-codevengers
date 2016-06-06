@@ -22,7 +22,7 @@ common = SourceFileLoader("module.name", current_file_path + "/../common.py").lo
 # start this manager by a menu
 def start():
 
-    # you code
+    # your code
 
     pass
 
@@ -40,9 +40,13 @@ def show_table(table):
 
 # Ask a new record as an input from the user than add it to @table, than return @table
 def add(table):
-    
-    return
+    added_line = ui.get_inputs(['month: ', 'number: ', 'day: ', 'year: ', 'type: ', 'amount: '], '')
+    added_line.insert(0, common.generate_random(table))
+    table.append(added_line)
+    data_manager.write_table_to_file('items.csv', table)  # data manager writes this back to file in one line
+    return table
 
+# print(add(data_manager.get_table_from_file('items.csv')))
 
 
 # Remove the record having the id @id_ from the @list, than return @table
