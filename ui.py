@@ -61,8 +61,12 @@ def print_menu(title, list_options, exit_message):
 # see the function call in main.py
 def get_inputs(list_titles, title):
     record = []
+    print(title + "\n")
     for titles in list_titles:
-        record.append(input(titles))
+        try:
+            record.append(int(input(titles)))
+        except:
+            record.append(input(titles))
     return record
 
 
