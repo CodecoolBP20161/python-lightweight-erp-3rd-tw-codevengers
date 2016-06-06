@@ -9,9 +9,33 @@
 # |   1    |       fo       |    fps  |
 # \-----------------------------------/
 def print_table(table, title_list):
-
-    # your code
-
+    max_len = []
+    for i, title in enumerate(title_list):
+        max_len.append(len(title))
+        for games in table:
+            if len(str(games[i])) > max_len[i]:
+                max_len[i] = len(str(games[i]))
+    for i, length in enumerate(max_len):
+        if length % 2 == 0:
+            max_len[i] = length + 3
+        else:
+            max_len[i] = length + 4
+    for i, length in enumerate(max_len):
+        print("|" + "-"*(length), end="")
+    print("|\n")
+    for i, length in enumerate(max_len):
+        print("|".ljust(1) + title_list[i].center(int(((length)))), end="")
+    print("|\n")
+    for games in table:
+        for i, length in enumerate(max_len):
+            print("|" + "-"*(length), end="")
+        print("|\n")
+        for i, length in enumerate(max_len):
+            print("|".ljust(1) + str(games[i]).center(int(((length)))), end="")
+        print("|\n")
+    for i, length in enumerate(max_len):
+        print("|" + "-"*(length), end="")
+    print("|\n")
     pass
 
 
@@ -48,3 +72,7 @@ def print_error_message(message):
     # your code
 
     pass
+
+table = [[1, "asd", "fps"], [1242, "qqweqwdawdwe", "rpg"], [3, "weginweg", "fps"]]
+title_list = ["ID", "name", "type"]
+print_table(table, title_list)
