@@ -27,18 +27,18 @@ def print_table(table):
 #
 # see the function call in main.py
 def print_menu(title, list_options, exit_message):
-
-    # your code
-
+    print(title)
+    for i, options in enumerate(list_options):
+        print("(%d) %s" % (i + 1, options))
+    print("(0) %s" % exit_message)
     pass
 
 
 # see the function call in main.py
 def get_inputs(list_titles, title):
     record = []
-
-    # your code
-
+    for titles in list_titles:
+        record.append(input(titles))
     return record
 
 
