@@ -68,11 +68,5 @@ def get_inputs(list_titles, title):
 
 # see the function call in main.py
 def print_error_message(message):
-
-    # your code
-
+    print(message)
     pass
-
-table = [[1, "asd", "fps"], [1242, "qqweqwdawdwe", "rpg"], [3, "weginweg", "fps"]]
-title_list = ["ID", "name", "type"]
-print_table(table, title_list)
