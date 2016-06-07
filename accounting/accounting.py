@@ -43,6 +43,9 @@ def add(table):
     added_line = ui.get_inputs(['month: ', 'number: ', 'day: ', 'year: ', 'type: ', 'amount: '], '')
     added_line.insert(0, common.generate_random(table))
     table.append(added_line)
+    for i in table:
+        for element, l in enumerate(i):
+            i[element] = str(l)
     data_manager.write_table_to_file('items.csv', table)  # data manager writes this back to file in one line
     return table
 
@@ -58,7 +61,8 @@ def remove(table, id_):
     data_manager.write_table_to_file("items.csv", table)
     return table
 
-# print(remove(data_manager.get_table_from_file('items.csv'), 'ui.get_inputs('please enter an ID: ', '')'))
+# print(remove(data_manager.get_table_from_file('items.csv'), ui.get_inputs(['please enter an ID: '], '')[0]))
+
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
 # than return the @table
