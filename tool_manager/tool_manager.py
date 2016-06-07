@@ -1,4 +1,4 @@
-# data structure:
+    # data structure:
 # id: string
 #     Unique and random generated (at least 2 special char()expect: ';'), 2 number, 2 lower and 2 upper case letter)
 # name: string
@@ -20,7 +20,7 @@ common = SourceFileLoader("module.name", current_file_path + "/../common.py").lo
 
 
 # start this manager by a menu
-def start():
+def start_module():
 
     # you code
 
@@ -29,14 +29,23 @@ def start():
 
 # print the default table of records from the file
 def show_table(table):
-
+    table = data_manager.get_table_from_file(table)
+    table_str = ""
+    for item in range(len(table)):
+        table_str += str(table[item]) + ("\n")
+    return table_str
     # your code
-
-    pass
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
+
+
 def add(table):
+    table = data_manager.get_table_from_file(table)
+    record = ui.get_inputs(["name: ", "producer: ", "year: ", "number of pieces: "], " ")
+    record.insert(0, common.generate_random(table))
+    table.append(record)
+    data_manager.write_table_to_file("tools.csv", table)
 
     # your code
 
@@ -44,11 +53,21 @@ def add(table):
 
 
 # Remove the record having the id @id_ from the @list, than return @table
+
+
 def remove(table, id_):
+    table = data_manager.get_table_from_file(table)
+    for item in range(len(table)):
+        list_in_list = table[item]
+        if id_ in list_in_list:
+            table.pop(item)
+    data_manager.write_table_to_file("tools.csv", table)
 
     # your code
 
     return table
+print(remove("tools.csv", "9w1ID),v"))
+
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
