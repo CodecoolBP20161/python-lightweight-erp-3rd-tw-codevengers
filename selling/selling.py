@@ -14,16 +14,17 @@ import os
 from importlib.machinery import SourceFileLoader
 current_file_path = os.path.dirname(os.path.abspath(__file__))
 # User interface module
-ui = SourceFileLoader("module.name", current_file_path + "/../ui.py").load_module()
+ui = SourceFileLoader("ui", current_file_path + "/../ui.py").load_module()
 # data manager module
-data_manager = SourceFileLoader("module.name", current_file_path + "/../data_manager.py").load_module()
+data_manager = SourceFileLoader("data_manager", current_file_path + "/../data_manager.py").load_module()
 # common modul
-common = SourceFileLoader("module.name", current_file_path + "/../common.py").load_module()
+common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
 # start this manager by a menu
 
 
 def start_module():
     table = data_manager.get_table_from_file("sellings.csv")
+    print(table)
     list_options = ["Show Table", "Add to table", "Remove from table", "Update table"]
     ui.print_menu("Sellings menu", list_options, "Exit to main menu")
     inputs = ui.get_inputs(["Please enter a number: "], "")
@@ -52,7 +53,7 @@ def start_module():
 
 # print the default table of records from the file
 def show_table(table):
-    print_table("sellings.csv", title_list)
+    ui.print_table("sellings.csv", title_list)
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
@@ -61,6 +62,9 @@ def add(table):
     add_records = ui.get_inputs(list_titles, "")
     add_records.insert(0, common.generate_random(table))
     table.append(add_records)
+    for i in table:
+        for element, l in enumerate(i):
+            i[element] = str(l)
     return table
 
 
