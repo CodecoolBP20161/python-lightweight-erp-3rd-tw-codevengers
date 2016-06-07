@@ -19,16 +19,44 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 
 # start this manager by a menu
 def start_module():
-
-    # you code
-
-    pass
+    title = "HR"
+    exit_message = "Back to da future"
+    list_options = ["Show the table",
+                    "Add to table",
+                    "Remove from table",
+                    "Update the table",
+                    "Get the oldest person(s)",
+                    "Get the closest persons(s) to average",
+                    "Back to the main menu"]
+    while True:
+        table = data_manager.get_table_from_file(current_file_path + "/persons.csv")
+        ui.print_menu(title, list_options, exit_message)
+        inputs = ui.get_inputs(["\nEnter a num: "], " ")
+        user_input = int(inputs[0])
+        if user_input == 1:
+            show_table(table)
+        elif user_input == 2:
+            add(table)
+        elif user_input == 3:
+            id_ = ui.get_inputs(["Which ID do you want to remove? "], " ")
+            remove(table, id_)
+        elif user_input == 4:
+            id_ = ui.get_inputs(["Which ID dou you want to update? "], " ")
+            update(table, id_)
+        elif user_input == 5:
+            get_oldest_person(table)
+        elif user_input == 6:
+            get_persons_closest_to_average(table)
+        elif user_input == 0:
+            exit()
+        else:
+            raise KeyError("Invalid target")
+        data_manager.write_table_to_file(current_file_path + "/persons.csv", table)
 
 
 # print the default table of records from the file
 def show_table(table):
 
-    # your code
 
     pass
 
@@ -36,7 +64,7 @@ def show_table(table):
 # Ask a new record as an input from the user than add it to @table, than return @table
 def add(table):
 
-    # your code
+
 
     return table
 
@@ -77,3 +105,5 @@ def get_persons_closest_to_average(table):
     # your code
 
     pass
+
+start_module()
