@@ -19,14 +19,11 @@ ui = SourceFileLoader("ui", current_file_path + "/../ui.py").load_module()
 data_manager = SourceFileLoader("data_manager", current_file_path + "/../data_manager.py").load_module()
 # common modul
 common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
-# common module
-common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
 
 
 # start this manager by a menu
 def start_module():
-    table = data_manager.get_table_from_file("sellings.csv")
-    print(table)
+    table = data_manager.get_table_from_file(current_file_path + "/sellings.csv")
     list_options = ["Show Table", "Add to table", "Remove from table", "Update table"]
     ui.print_menu("Sellings menu", list_options, "Exit to main menu")
     inputs = ui.get_inputs(["Please enter a number: "], "")
@@ -36,7 +33,7 @@ def start_module():
     elif option == 2:
         add(table)
     elif option == 3:
-        id_ = ui.get_inputs(["Please enter an ID: "], "")
+        id_ = ui.get_inputs(["Please enter an ID: "], "")[0]
         remove(table, id_)
     elif option == 4:
         id_ = ui.get_inputs(["Please enter an ID: "], "")
@@ -49,13 +46,14 @@ def start_module():
         exit()
     else:
         raise KeyError("There is no such option.")
-    data_manager.write_table_to_file("sellings.csv", table)
+    data_manager.write_table_to_file(current_file_path + "/sellings.csv", table)
     pass
 
 
 # print the default table of records from the file
 def show_table(table):
-    ui.print_table("sellings.csv", title_list)
+    title_list = ["ID", "Title", "Price", "Month", "Day", "Year"]
+    ui.print_table(table, title_list)
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
@@ -72,20 +70,24 @@ def add(table):
 
 # Remove the record having the id @id_ from the @list, than return @table
 def remove(table, id_):
+    for i, l in enumerate(table):
+        if id_ == l[0]:
+            del table[i]
     return table
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
 # than return @table
 def update(table, id_):
-
-    # your code
-
+    if id_ in table:
+        table.remove()
+        list_titles = ["Game name?: ", "Game price?: ", "Month?: ", "Day?:", "Year?:"]
+        add_records = ui.get_inputs(list_titles, "")
     return table
-
 
 # special functions:
 # ------------------
+
 
 # the question: What is the id of the item that sold for the lowest price ?
 # return type: string (id)
@@ -100,9 +102,6 @@ def get_lowest_price_item_id(table):
 # the question: Which items are sold between two given dates ? (from_date < birth_date < to_date)
 # return type: list of lists (the filtered table)
 def get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to):
-
-    # your code
-
     pass
 
-start_module()
+# start_module()
