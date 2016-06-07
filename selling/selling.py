@@ -17,15 +17,22 @@ current_file_path = os.path.dirname(os.path.abspath(__file__))
 ui = SourceFileLoader("ui", current_file_path + "/../ui.py").load_module()
 # data manager module
 data_manager = SourceFileLoader("data_manager", current_file_path + "/../data_manager.py").load_module()
-# common modul
+# common module
 common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
+# main module
+# main = SourceFileLoader("main", current_file_path + "/../main.py").load_module()
 
 
 # start this manager by a menu
 def start_module():
     while True:
         table = data_manager.get_table_from_file(current_file_path + "/sellings.csv")
-        list_options = ["Show Table", "Add to table", "Remove from table", "Update table"]
+        list_options = ["Show Table",
+                        "Add to table",
+                        "Remove from table",
+                        "Update table",
+                        "Lowest price ID",
+                        "Sold in a period"]
         ui.print_menu("Sellings menu", list_options, "Exit to main menu")
         inputs = ui.get_inputs(["Please enter a number: "], "")
         option = inputs[0]
@@ -98,10 +105,11 @@ def update(table, id_):
 # return type: string (id)
 # if there are more than one with the lowest price, return the first of descending alphabetical order
 def get_lowest_price_item_id(table):
-
-    # your code
-
-    pass
+    prices = []
+    for line in table:
+        prices.append(line[2])
+    lowest_price = min(prices)
+    return lowest_price
 
 
 # the question: Which items are sold between two given dates ? (from_date < birth_date < to_date)
@@ -109,4 +117,4 @@ def get_lowest_price_item_id(table):
 def get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to):
     pass
 
-# start_module()
+start_module()
