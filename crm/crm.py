@@ -21,38 +21,36 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 
 # start this manager by a menu
 def start_module():
-    table = data_manager.get_table_from_file("customers.csv")
+    table = data_manager.get_table_from_file(current_file_path + "/customers.csv")
     # print(table)
     list_options = ["Show Table", "Add to table", "Remove from table", "Update table"]
     ui.print_menu("CRM menu", list_options, "Exit to main menu")
     inputs = ui.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
     if option == 1:
-        print(show_table(table))
+        show_table(table)
     elif option == 2:
         add(table)
     elif option == 3:
-        id_ = ui.get_inputs(["Please enter an ID: "], "")
+        id_ = ui.get_inputs(["Please enter an ID: "], "")[0]
         remove(table, id_)
     elif option == 4:
         id_ = ui.get_inputs(["Please enter an ID: "], "")
         update(table, id_)
     elif option == 5:
-        get_lowest_price_item_id(table)
+        get_longest_name_id(table)
     elif option == 6:
-        get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to)
+        get_subscribed_emails(table)
     elif option == 0:
         exit()
     else:
         raise KeyError("There is no such option.")
-    data_manager.write_table_to_file("customers.csv", table)
-    pass
+    data_manager.write_table_to_file(current_file_path + "/customers.csv", table)
 
 
 # print the default table of records from the file
 def show_table(table):
-    ui.print_table(table,['ID', 'Name', 'Email', 'Subscribed'])
-    pass
+    ui.print_table(table, ['ID', 'Name', 'Email', 'Subscribed'])
 
 # print(show_table(data_manager.get_table_from_file('customers.csv')))
 
@@ -65,7 +63,7 @@ def add(table):
     for i in table:
         for element, l in enumerate(i):
             i[element] = str(l)
-    data_manager.write_table_to_file('customers.csv', table)  # data manager writes this back to file in one line
+    data_manager.write_table_to_file(current_file_path + "/customers.csv", table)  # data manager writes this back to file in one line
     return table
 
 # print(add(data_manager.get_table_from_file('customers.csv')))
@@ -73,11 +71,9 @@ def add(table):
 
 
 def remove(table, id_):
-    for item in range(len(table)):
-        list_in_list = table[item]
-        if id_ in list_in_list:
-            table.pop(item)
-    data_manager.write_table_to_file("customers.csv", table)
+    for i, l in enumerate(table):
+        if id_ == l[0]:
+            del table[i]
     return table
 
 # print(remove(data_manager.get_table_from_file('customers.csv'), ui.get_inputs(['please enter an ID: '], '')[0]))
@@ -98,14 +94,13 @@ def update(table, id_):
 
 # the question: What is the id of the customer with the longest name ?
 # return type: string (id) - if there are more than one longest name, return the first of descending alphabetical order
-# def get_longest_name_id(table):
-#     glist = csv.reader(inputfile, delimiter="\t")
-#     name = []
-#     titles.append([row[1] for row in table])
-#     titles = [item for slist in titles for item in slist]
-#     return max(len(x) for x in titles)
-#
-#     pass
+def get_longest_name_id(table):
+    glist = csv.reader(inputfile, delimiter="\t")
+    name = []
+    titles.append([row[1] for row in table])
+    titles = [item for slist in titles for item in slist]
+    return max(len(x) for x in titles)
+
 
 
 # the question: Which customers has subscribed to the newsletter?
