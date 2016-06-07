@@ -63,10 +63,11 @@ def get_inputs(list_titles, title):
     record = []
     print(title + "\n")
     for titles in list_titles:
+        input_record = input(titles)
         try:
-            record.append(int(input(titles)))
+            record.append(int(input_record))
         except ValueError:
-            record.append(titles)
+            record.append(input_record)
     return record
 
 
