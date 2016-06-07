@@ -1,4 +1,4 @@
-    # data structure:
+# data structure:
 # id: string
 #     Unique and random generated (at least 2 special char()expect: ';'), 2 number, 2 lower and 2 upper case letter)
 # name: string
@@ -12,11 +12,11 @@ import os
 from importlib.machinery import SourceFileLoader
 current_file_path = os.path.dirname(os.path.abspath(__file__))
 # User interface module
-ui = SourceFileLoader("module.name", current_file_path + "/../ui.py").load_module()
+ui = SourceFileLoader("ui", current_file_path + "/../ui.py").load_module()
 # data manager module
-data_manager = SourceFileLoader("module.name", current_file_path + "/../data_manager.py").load_module()
+data_manager = SourceFileLoader("data_manager", current_file_path + "/../data_manager.py").load_module()
 # common module
-common = SourceFileLoader("module.name", current_file_path + "/../common.py").load_module()
+common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
 
 
 # start this manager by a menu
@@ -67,7 +67,6 @@ def remove(table, id_):
 
     return table
 print(remove("tools.csv", "9w1ID),v"))
-
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
