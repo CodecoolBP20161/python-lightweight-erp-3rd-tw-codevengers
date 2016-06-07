@@ -16,30 +16,37 @@ current_file_path = os.path.dirname(os.path.abspath(__file__))
 ui = SourceFileLoader("module.name", current_file_path + "/../ui.py").load_module()
 # data manager module
 data_manager = SourceFileLoader("module.name", current_file_path + "/../data_manager.py").load_module()
+common = SourceFileLoader("module.name", current_file_path + "/../common.py").load_module()
 
 
 # start this manager by a menu
 def start_module():
 
-    # you code
+    # your code
 
     pass
 
 
 # print the default table of records from the file
 def show_table(table):
-
-    # your code
-
+    t_temp = ""
+    for item in range(len(table)):
+        t_temp += str(table[item]) + ("\n")
+    return t_temp
     pass
+
+# print(show_table(data_manager.get_table_from_file('items.csv')))
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
 def add(table):
-
-    # your code
-
+    added_line = ui.get_inputs(['month: ', 'number: ', 'day: ', 'year: ', 'type: ', 'amount: '], '')
+    added_line.insert(0, common.generate_random(table))
+    table.append(added_line)
+    data_manager.write_table_to_file('items.csv', table)  # data manager writes this back to file in one line
     return table
+
+# print(add(data_manager.get_table_from_file('items.csv')))
 
 
 # Remove the record having the id @id_ from the @list, than return @table
