@@ -50,14 +50,14 @@ def start_module():
         elif user_input == 0:
             exit()
         else:
-            raise KeyError("Invalid target")
+            raise KeyError("There is no such option.")
         data_manager.write_table_to_file(current_file_path + "/persons.csv", table)
 
 
 # print the default table of records from the file
 def show_table(table):
-
-
+    title_list = ["ID", "Name", "Birth Date"]
+    ui.print_table(table, title_list)
     pass
 
 
