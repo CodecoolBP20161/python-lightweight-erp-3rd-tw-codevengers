@@ -20,21 +20,39 @@ data_manager = SourceFileLoader("data_manager", current_file_path + "/../data_ma
 common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
 
 
-
 # start this manager by a menu
 def start_module():
-
-    # your code
-
+    table = data_manager.get_table_from_file("items.csv")
+    list_options = ["Show Table", "Add to table", "Remove from table", "Update table", "Highest profit", "Average profit"]
+    ui.print_menu("Accounting menu", list_options, "Exit to main menu")
+    inputs = ui.get_inputs(["Please enter a number: "], "")
+    option = inputs[0]
+    if option == 1:
+        show_table(table)
+    elif option == 2:
+        add(table)
+    elif option == 3:
+        # id_ = ui.get_inputs(["Please enter an ID: "], "")
+        remove(table, ui.get_inputs(["Please enter an ID: "], ""))
+    elif option == 4:
+        id_ = ui.get_inputs(["Please enter an ID: "], "")
+        update(table, id_)
+    elif option == 5:
+        which_year_max(table)
+    elif option == 6:
+        year = ui.get_inputs(["Please enter a year: "], "")
+        avg_amount(table, xear)
+    elif option == 0:
+        exit()
+    else:
+        raise KeyError("There is no such option.")
+    data_manager.write_table_to_file("items.csv", table)
     pass
 
 
 # print the default table of records from the file
 def show_table(table):
-    t_temp = ""
-    for item in range(len(table)):
-        t_temp += str(table[item]) + ("\n")
-    return t_temp
+    ui.print_table(table, ['ID', 'Month', 'Day', 'Year', 'Type', 'Amount'])
     pass
 
 # print(show_table(data_manager.get_table_from_file('items.csv')))
@@ -60,7 +78,6 @@ def remove(table, id_):
         list_in_list = table[item]
         if id_ in list_in_list:
             table.pop(item)
-    data_manager.write_table_to_file("items.csv", table)
     return table
 
 # print(remove(data_manager.get_table_from_file('items.csv'), ui.get_inputs(['please enter an ID: '], '')[0]))
@@ -94,3 +111,5 @@ def avg_amount(table, year):
     # your code
 
     pass
+
+start_module()
