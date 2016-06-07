@@ -15,22 +15,30 @@ current_file_path = os.path.dirname(os.path.abspath(__file__))
 ui = SourceFileLoader("module.name", current_file_path + "/../ui.py").load_module()
 # data manager module
 data_manager = SourceFileLoader("module.name", current_file_path + "/../data_manager.py").load_module()
-
+common = SourceFileLoader("module.name", current_file_path + "/../common.py").load_module()
 
 # start this manager by a menu
-def start_module():
-
-    # you code
-
-    pass
-
+def start():
+    title = "Store menu:"
+    list_options = ["Show table",
+                    "Add",
+                    "Remove",
+                    "Update",
+                    "Get count by manufacturers",
+                    "Get average by manufacturer"]
+    exit_message = "Exit menu"
 
 # print the default table of records from the file
 def show_table(table):
+    table = data_manager.get_table_from_file(table)
+    table_str = ""
+    for item in range(len(table)):
+        table_str += str(table[item]) + ("\n")
 
-    # your code
+    return table_str
 
-    pass
+
+
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
