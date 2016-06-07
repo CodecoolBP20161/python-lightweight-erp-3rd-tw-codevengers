@@ -22,7 +22,7 @@ common = SourceFileLoader("module.name", current_file_path + "/../common.py").lo
 # start this manager by a menu
 
 
-def start():
+def start_module():
     table = data_manager.get_table_from_file("sellings.csv")
     list_options = ["Show Table", "Add to table", "Remove from table", "Update table"]
     ui.print_menu("Sellings menu", list_options, "Exit to main menu")
@@ -99,4 +99,4 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
 
     pass
 
-start()
+start_module()
