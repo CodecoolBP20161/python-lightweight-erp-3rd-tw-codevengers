@@ -86,8 +86,6 @@ def update(table, id_):
                     i[element] = str(l)
             return table
 
-start_module()
-
 
 # special functions:
 # ------------------
