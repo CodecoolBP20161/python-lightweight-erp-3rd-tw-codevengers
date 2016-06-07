@@ -17,8 +17,15 @@ current_file_path = os.path.dirname(os.path.abspath(__file__))
 ui = SourceFileLoader("ui", current_file_path + "/../ui.py").load_module()
 # data manager module
 data_manager = SourceFileLoader("data_manager", current_file_path + "/../data_manager.py").load_module()
+<<<<<<< HEAD
 # common modul
 common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
+=======
+# common module
+common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
+
+
+>>>>>>> e1159f012ebaeae965e2cfb48bdb4103dd65864b
 # start this manager by a menu
 
 
