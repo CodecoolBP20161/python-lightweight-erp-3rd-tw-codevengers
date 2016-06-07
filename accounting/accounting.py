@@ -86,7 +86,16 @@ def remove(table, id_):
 # Update the record in @table having the id @id_ by asking the new data from the user,
 # than return the @table
 def update(table, id_):
-
+    for item in range(len(table)):
+        list_in_list = table[item]
+        if id_[0] == list_in_list[0]:
+            record = ui.get_inputs(['Month: ', 'Day: ', 'Year: ', 'Type: ', 'Amount: '], '')
+            record.insert(0, id_[0])
+            table[item] = record
+            for i in table:
+                for element, l in enumerate(i):
+                    i[element] = str(l)
+    data_manager.write_table_to_file(current_file_path + "/items.csv", table)
     return table
 
 
@@ -121,4 +130,4 @@ def avg_amount(table, year):
 
     pass
 
-start_module()
+# start_module()
