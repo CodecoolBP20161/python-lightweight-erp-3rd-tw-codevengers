@@ -33,15 +33,23 @@ def show_table(table):
     return t_temp
     pass
 
-print(show_table(data_manager.get_table_from_file('customers.csv')))
+# print(show_table(data_manager.get_table_from_file('customers.csv')))
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
 def add(table):
+    added_line = ui.get_inputs(['name: ', 'email: ', 'subscribed: '], '')
+    added_line.insert(0, common.generate_random(table))
+    table.append(added_line)
+    for i in table:
+        for element, l in enumerate(i):
+            i[element] = str(l)
+    data_manager.write_table_to_file('customers.csv', table)  # data manager writes this back to file in one line
+    return table
 
+print(add(data_manager.get_table_from_file('customers.csv')))
 # Remove the record having the id @id_ from the @list, than return @table
 
-    return table
 
 def remove(table, id_):
 
