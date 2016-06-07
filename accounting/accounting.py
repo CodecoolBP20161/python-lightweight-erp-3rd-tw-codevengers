@@ -22,8 +22,8 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 
 # start this manager by a menu
 def start_module():
-    table = data_manager.get_table_from_file("items.csv")
-    list_options = ["Show Table", "Add to table", "Remove from table", "Update table", "Highest profit", "Average profit"]
+    table = data_manager.get_table_from_file(current_file_path + "/items.csv")
+    list_options = ["Show table", "Add to table", "Remove from table", "Update table", "Highest profit", "Average profit"]
     ui.print_menu("Accounting menu", list_options, "Exit to main menu")
     inputs = ui.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
@@ -32,8 +32,8 @@ def start_module():
     elif option == 2:
         add(table)
     elif option == 3:
-        # id_ = ui.get_inputs(["Please enter an ID: "], "")
-        remove(table, ui.get_inputs(["Please enter an ID: "], ""))
+        id_ = ui.get_inputs(["Please enter an ID: "], "")
+        remove(table, id_)
     elif option == 4:
         id_ = ui.get_inputs(["Please enter an ID: "], "")
         update(table, id_)
@@ -41,12 +41,11 @@ def start_module():
         which_year_max(table)
     elif option == 6:
         year = ui.get_inputs(["Please enter a year: "], "")
-        avg_amount(table, xear)
+        avg_amount(table, year)
     elif option == 0:
         exit()
     else:
         raise KeyError("There is no such option.")
-    data_manager.write_table_to_file("items.csv", table)
     pass
 
 
@@ -66,7 +65,7 @@ def add(table):
     for i in table:
         for element, l in enumerate(i):
             i[element] = str(l)
-    data_manager.write_table_to_file('items.csv', table)  # data manager writes this back to file in one line
+    data_manager.write_table_to_file(current_file_path + "/items.csv", table)
     return table
 
 # print(add(data_manager.get_table_from_file('items.csv')))
@@ -75,9 +74,9 @@ def add(table):
 # Remove the record having the id @id_ from the @list, than return @table
 def remove(table, id_):
     for item in range(len(table)):
-        list_in_list = table[item]
-        if id_ in list_in_list:
-            table.pop(item)
+        if table[item][0] == id_[0]:
+            del table[item]
+    data_manager.write_table_to_file(current_file_path + "/items.csv", table)
     return table
 
 # print(remove(data_manager.get_table_from_file('items.csv'), ui.get_inputs(['please enter an ID: '], '')[0]))
@@ -86,8 +85,9 @@ def remove(table, id_):
 # Update the record in @table having the id @id_ by asking the new data from the user,
 # than return the @table
 def update(table, id_):
-
-    # your code
+    # for item in range(len(table)):
+    #     list_in_list = table[item]
+    #     if id_ in list_in_list:
 
     return table
 
@@ -98,10 +98,9 @@ def update(table, id_):
 # the question: Which year has the highest profit? (profit=in-out) (2015 or 2016)
 # return the answer (number)
 def which_year_max(table):
-
-    # your code
-
-    pass
+    for item in range(len(table)):
+        if table[item][0] == id_[0]:
+            del table[item]
 
 
 # the question: What is the average (per item) profit in a given year? [(profit)/(items count) ]
