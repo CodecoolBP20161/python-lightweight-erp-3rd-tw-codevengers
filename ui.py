@@ -22,20 +22,20 @@ def print_table(table, title_list):
             max_len[i] = length + 4
     for i, length in enumerate(max_len):
         print("|" + "-"*(length), end="")
-    print("|\n")
+    print("|")
     for i, length in enumerate(max_len):
-        print("|".ljust(1) + title_list[i].center(int(((length)))), end="")
-    print("|\n")
+        print("|" + title_list[i].center(int(((length)))), end="")
+    print("|")
     for games in table:
         for i, length in enumerate(max_len):
             print("|" + "-"*(length), end="")
-        print("|\n")
+        print("|")
         for i, length in enumerate(max_len):
-            print("|".ljust(1) + str(games[i]).center(int(((length)))), end="")
-        print("|\n")
+            print("|" + str(games[i]).center(int(((length)))), end="")
+        print("|")
     for i, length in enumerate(max_len):
         print("|" + "-"*(length), end="")
-    print("|\n")
+    print("|")
     pass
 
 
@@ -65,8 +65,8 @@ def get_inputs(list_titles, title):
     for titles in list_titles:
         try:
             record.append(int(input(titles)))
-        except:
-            record.append(input(titles))
+        except ValueError:
+            record.append(titles)
     return record
 
 
