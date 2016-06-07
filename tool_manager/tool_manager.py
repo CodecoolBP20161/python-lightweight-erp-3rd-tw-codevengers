@@ -50,24 +50,23 @@ def add(table):
     # your code
 
     return table
-print(add("tools.csv"))
+
 
 # Remove the record having the id @id_ from the @list, than return @table
 
 
 def remove(table, id_):
     table = data_manager.get_table_from_file(table)
-    id_ = ui.get_inputs("id: ")
-    for item in table:
+    for item in range(len(table)):
         list_in_list = table[item]
         if id_ in list_in_list:
-            remove(table[item])
+            table.pop(item)
     data_manager.write_table_to_file("tools.csv", table)
 
     # your code
 
     return table
-
+print(remove("tools.csv", "9w1ID),v"))
 
 
 
