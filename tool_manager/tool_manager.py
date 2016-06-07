@@ -1,4 +1,4 @@
-    # data structure:
+# data structure:
 # id: string
 #     Unique and random generated (at least 2 special char()expect: ';'), 2 number, 2 lower and 2 upper case letter)
 # name: string
@@ -67,7 +67,6 @@ def remove(table, id_):
 
     return table
 print(remove("tools.csv", "9w1ID),v"))
-
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
