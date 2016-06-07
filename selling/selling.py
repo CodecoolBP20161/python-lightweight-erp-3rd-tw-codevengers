@@ -23,31 +23,31 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 
 # start this manager by a menu
 def start_module():
-    table = data_manager.get_table_from_file(current_file_path + "/sellings.csv")
-    list_options = ["Show Table", "Add to table", "Remove from table", "Update table"]
-    ui.print_menu("Sellings menu", list_options, "Exit to main menu")
-    inputs = ui.get_inputs(["Please enter a number: "], "")
-    option = inputs[0]
-    if option == 1:
-        show_table(table)
-    elif option == 2:
-        add(table)
-    elif option == 3:
-        id_ = ui.get_inputs(["Please enter an ID: "], "")[0]
-        remove(table, id_)
-    elif option == 4:
-        id_ = ui.get_inputs(["Please enter an ID: "], "")
-        update(table, id_)
-    elif option == 5:
-        get_lowest_price_item_id(table)
-    elif option == 6:
-        get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to)
-    elif option == 0:
-        exit()
-    else:
-        raise KeyError("There is no such option.")
-    data_manager.write_table_to_file(current_file_path + "/sellings.csv", table)
-    pass
+    while True:
+        table = data_manager.get_table_from_file(current_file_path + "/sellings.csv")
+        list_options = ["Show Table", "Add to table", "Remove from table", "Update table"]
+        ui.print_menu("Sellings menu", list_options, "Exit to main menu")
+        inputs = ui.get_inputs(["Please enter a number: "], "")
+        option = inputs[0]
+        if option == 1:
+            show_table(table)
+        elif option == 2:
+            add(table)
+        elif option == 3:
+            id_ = ui.get_inputs(["Please enter an ID: "], "")[0]
+            remove(table, id_)
+        elif option == 4:
+            id_ = ui.get_inputs(["Please enter an ID: "], "")[0]
+            update(table, id_)
+        elif option == 5:
+            get_lowest_price_item_id(table)
+        elif option == 6:
+            get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to)
+        elif option == 0:
+            exit()
+        else:
+            raise KeyError("There is no such option.")
+        data_manager.write_table_to_file(current_file_path + "/sellings.csv", table)
 
 
 # print the default table of records from the file
@@ -79,11 +79,16 @@ def remove(table, id_):
 # Update the record in @table having the id @id_ by asking the new data from the user,
 # than return @table
 def update(table, id_):
-    if id_ in table:
-        table.remove()
-        list_titles = ["Game name?: ", "Game price?: ", "Month?: ", "Day?:", "Year?:"]
-        add_records = ui.get_inputs(list_titles, "")
+    remove(table, id_)
+    list_titles = ["Game name?: ", "Game price?: ", "Month?: ", "Day?:", "Year?:"]
+    add_records = ui.get_inputs(list_titles, "")
+    add_records.insert(0, id_)
+    table.append(add_records)
+    for i in table:
+        for element, l in enumerate(i):
+            i[element] = str(l)
     return table
+
 
 # special functions:
 # ------------------
