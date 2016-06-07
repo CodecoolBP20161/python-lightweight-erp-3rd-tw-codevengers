@@ -20,7 +20,7 @@ common = SourceFileLoader("module.name", current_file_path + "/../common.py").lo
 
 
 # start this manager by a menu
-def start():
+def start_module():
 
     # your code
 
@@ -51,11 +51,14 @@ def add(table):
 
 # Remove the record having the id @id_ from the @list, than return @table
 def remove(table, id_):
-
-    # your code
-
+    for item in range(len(table)):
+        list_in_list = table[item]
+        if id_ in list_in_list:
+            table.pop(item)
+    data_manager.write_table_to_file("items.csv", table)
     return table
 
+# print(remove(data_manager.get_table_from_file('items.csv'), 'ui.get_inputs('please enter an ID: ', '')'))
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
 # than return the @table
