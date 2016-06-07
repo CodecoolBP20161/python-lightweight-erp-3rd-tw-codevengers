@@ -79,7 +79,6 @@ def remove(table, id_):
     data_manager.write_table_to_file("tools.csv", table)
     return table
 
-
 # Update the record in @table having the id @id_ by asking the new data from the user,
 # than return @table
 def update(table, id_):

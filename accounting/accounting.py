@@ -15,8 +15,6 @@ current_file_path = os.path.dirname(os.path.abspath(__file__))
 # User interface module
 ui = SourceFileLoader("ui", current_file_path + "/../ui.py").load_module()
 # data manager module
-data_manager = SourceFileLoader("module.name", current_file_path + "/../data_manager.py").load_module()
-common = SourceFileLoader("module.name", current_file_path + "/../common.py").load_module()
 data_manager = SourceFileLoader("data_manager", current_file_path + "/../data_manager.py").load_module()
 # common module
 common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
@@ -47,6 +45,9 @@ def add(table):
     added_line = ui.get_inputs(['month: ', 'number: ', 'day: ', 'year: ', 'type: ', 'amount: '], '')
     added_line.insert(0, common.generate_random(table))
     table.append(added_line)
+    for i in table:
+        for element, l in enumerate(i):
+            i[element] = str(l)
     data_manager.write_table_to_file('items.csv', table)  # data manager writes this back to file in one line
     return table
 
@@ -55,10 +56,14 @@ def add(table):
 
 # Remove the record having the id @id_ from the @list, than return @table
 def remove(table, id_):
-
-    # your code
-
+    for item in range(len(table)):
+        list_in_list = table[item]
+        if id_ in list_in_list:
+            table.pop(item)
+    data_manager.write_table_to_file("items.csv", table)
     return table
+
+# print(remove(data_manager.get_table_from_file('items.csv'), ui.get_inputs(['please enter an ID: '], '')[0]))
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,

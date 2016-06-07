@@ -17,39 +17,61 @@ current_file_path = os.path.dirname(os.path.abspath(__file__))
 ui = SourceFileLoader("ui", current_file_path + "/../ui.py").load_module()
 # data manager module
 data_manager = SourceFileLoader("data_manager", current_file_path + "/../data_manager.py").load_module()
+# common modul
+common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
 # common module
 common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
 
 
 # start this manager by a menu
 def start_module():
-
-    # you code
-
+    table = data_manager.get_table_from_file("sellings.csv")
+    print(table)
+    list_options = ["Show Table", "Add to table", "Remove from table", "Update table"]
+    ui.print_menu("Sellings menu", list_options, "Exit to main menu")
+    inputs = ui.get_inputs(["Please enter a number: "], "")
+    option = inputs[0]
+    if option == 1:
+        show_table(table)
+    elif option == 2:
+        add(table)
+    elif option == 3:
+        id_ = ui.get_inputs(["Please enter an ID: "], "")
+        remove(table, id_)
+    elif option == 4:
+        id_ = ui.get_inputs(["Please enter an ID: "], "")
+        update(table, id_)
+    elif option == 5:
+        get_lowest_price_item_id(table)
+    elif option == 6:
+        get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to)
+    elif option == 0:
+        exit()
+    else:
+        raise KeyError("There is no such option.")
+    data_manager.write_table_to_file("sellings.csv", table)
     pass
 
 
 # print the default table of records from the file
 def show_table(table):
-
-    # your code
-
-    pass
+    ui.print_table("sellings.csv", title_list)
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
 def add(table):
-
-    # your code
-
+    list_titles = ["Game name?: ", "Game price?: ", "Month?: ", "Day?:", "Year?:"]
+    add_records = ui.get_inputs(list_titles, "")
+    add_records.insert(0, common.generate_random(table))
+    table.append(add_records)
+    for i in table:
+        for element, l in enumerate(i):
+            i[element] = str(l)
     return table
 
 
 # Remove the record having the id @id_ from the @list, than return @table
 def remove(table, id_):
-
-    # your code
-
     return table
 
 
@@ -82,3 +104,5 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
     # your code
 
     pass
+
+start_module()
