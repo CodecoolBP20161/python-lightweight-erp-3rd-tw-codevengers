@@ -96,39 +96,28 @@ def update(table, id_):
 # the question: Which year has the highest profit? (profit=in-out) (2015 or 2016)
 # return the answer (number)
 def which_year_max(table):
-    income_2015 = 0
-    outcome_2015 = 0
+    profit_2015 = 0
+    profit_2016 = 0
     for row in range(len(table)):
-        if table[row][4] == 'in':
-            if table[row][3] == '2015':
-                income_2015 += int(table[row][5])
-    for row in range(len(table)):
-        if table[row][4] == 'out':
-            if table[row][3] == '2015':
-                outcome_2015 += int(table[row][5])
-    income_2016 = 0
-    outcome_2016 = 0
-    for row in range(len(table)):
-        if table[row][4] == 'in':
-            if table[row][3] == '2016':
-                income_2016 += int(table[row][5])
-    for row in range(len(table)):
-        if table[row][4] == 'out':
-            if table[row][3] == '2015':
-                outcome_2016 += int(table[row][5])
-    total_2015 = income_2015 - outcome_2015
-    total_2016 = income_2016 - outcome_2016
-    if total_2016 > total_2015:
-        return 2016
-    else:
+        if table[row][3] == '2015':
+            if table[row][4] == 'in':
+                profit_2015 += int(table[row][5])
+            elif table[row][4] == 'out':
+                profit_2015 -= int(table[row][5])
+        elif table[row][3] == '2016':
+            if table[row][4] == 'in':
+                profit_2016 += int(table[row][5])
+            elif table[row][4] == 'out':
+                profit_2016 -= int(table[row][5])
+    if profit_2015 > profit_2016:
         return 2015
+    else:
+        return 2016
 
 
 # the question: What is the average (per item) profit in a given year? [(profit)/(items count) ]
 # return the answer (number)
 def avg_amount(table, year):
-
-    # your code
 
     pass
 
