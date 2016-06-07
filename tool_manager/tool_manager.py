@@ -60,19 +60,24 @@ def remove(table, id_):
     for item in range(len(table)):
         list_in_list = table[item]
         if id_ in list_in_list:
-            table.pop(item)
+            table.pop(item)  # delete element of a table
     data_manager.write_table_to_file("tools.csv", table)
 
     # your code
 
     return table
-print(remove("tools.csv", "9w1ID),v"))
-
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
 # than return @table
 def update(table, id_):
+    table = data_manager.get_table_from_file(table)
+    for item in range(len(table)):
+        list_in_list = table[item]
+        if id_ in list_in_list:
+            record = ui.get_inputs(["name: ", "producer: ", "year: ", "number of pieces: "], " ")
+
+    data_manager.write_table_to_file("tools.csv", table)
 
     # your code
 
