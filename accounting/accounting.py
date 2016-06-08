@@ -22,35 +22,35 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 
 # start this manager by a menu
 def start_module():
-    table = data_manager.get_table_from_file(current_file_path + "/items.csv")
-    list_options = ["Show table", "Add to table", "Remove from table",
-                    "Update table", "Highest profit", "Average profit"]
-    ui.print_menu("Accounting menu", list_options, "Exit to main menu")
-    inputs = ui.get_inputs(["Please enter a number: "], "")
-    option = inputs[0]
-    if option == 1:
-        show_table(table)
-    elif option == 2:
-        add(table)
-    elif option == 3:
-        id_ = ui.get_inputs(["Please enter an ID: "], "")
-        remove(table, id_)
-    elif option == 4:
-        id_ = ui.get_inputs(["Please enter an ID: "], "")
-        update(table, id_)
-    elif option == 5:
-        year = str(which_year_max(table))
-        ui.print_table([[year]], ['The year with the highest profit:'])
-    elif option == 6:
-        year_input = ui.get_inputs(["Please enter a year: "], "")
-        year = int(year_input[0])
-        average_profit = str(avg_amount(table, year))
-        ui.print_table([[average_profit]], ['The average profit is:'])
-    elif option == 0:
-        exit()
-    else:
-        raise KeyError("There is no such option.")
-    pass
+    while True:
+        table = data_manager.get_table_from_file(current_file_path + "/items.csv")
+        list_options = ["Show table", "Add to table", "Remove from table",
+                        "Update table", "Highest profit", "Average profit"]
+        ui.print_menu("Accounting menu", list_options, "Exit to main menu")
+        inputs = ui.get_inputs(["Please enter a number: "], "")
+        option = inputs[0]
+        if option == 1:
+            show_table(table)
+        elif option == 2:
+            add(table)
+        elif option == 3:
+            id_ = ui.get_inputs(["Please enter an ID: "], "")
+            remove(table, id_)
+        elif option == 4:
+            id_ = ui.get_inputs(["Please enter an ID: "], "")
+            update(table, id_)
+        elif option == 5:
+            year = str(which_year_max(table))
+            ui.print_table([[year]], ['The year with the highest profit:'])
+        elif option == 6:
+            year_input = ui.get_inputs(["Please enter a year: "], "")
+            year = int(year_input[0])
+            average_profit = str(avg_amount(table, year))
+            ui.print_table([[average_profit]], ['The average profit is:'])
+        elif option == 0:
+            break
+        else:
+            raise KeyError("There is no such option.")
 
 
 # print the default table of records from the file
@@ -76,8 +76,8 @@ def remove(table, id_):
     for item in range(len(table)):
         if table[item][0] == id_[0]:
             del table[item]
-    data_manager.write_table_to_file(current_file_path + "/items.csv", table)
-    return table
+            data_manager.write_table_to_file(current_file_path + "/items.csv", table)
+            return table
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
@@ -131,6 +131,5 @@ def avg_amount(table, year):
             elif str(row[4]) == str("out"):
                 profit -= int(row[5])
                 items_count += 1
-    print(items_count)
     avg_profit = profit / items_count
     return(avg_profit)
