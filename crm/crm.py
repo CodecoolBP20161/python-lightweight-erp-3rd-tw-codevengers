@@ -41,7 +41,7 @@ def start_module():
             ui.print_table([[name]], ['The longest name ID is:'])
         elif option == 6:
             subscribed = (get_subscribed_emails(table))
-            ui.print_table([subscribed], ['The following customers subscribed:'])
+            ui.print_table(subscribed, ['The following customers subscribed:'])
         elif option == 0:
             exit()
         else:
@@ -114,7 +114,6 @@ def get_subscribed_emails(table):
     for line in table:
         if '1' in line[3]:
             subscribers.append([line[2] + ';' + line[1]])
-    print(subscribers)
     return(subscribers)
 
 # start_module()
