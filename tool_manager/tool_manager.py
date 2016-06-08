@@ -44,43 +44,37 @@ def start_module():
         elif option == 6:
             get_average_durability_by_manufacturers(table)
         elif option == 0:
-            exit()
+            break
         else:
             raise KeyError("There is no such option.")
+        common.lists_in_list_to_str(table)
         data_manager.write_table_to_file(current_file_path + "/tools.csv", table)
 
 
 # print the default table of records from the file
-
 def show_table(table):
     ui.print_table(table, ['ID', 'Name', 'Producer', 'Year', 'Durability'])
 
+
 #  Ask a new record as an input from the user than add it to @table, than return @table
-
-
 def add(table):
     record = ui.get_inputs(["Name: ", "Producer: ", "Year: ", "Durability: "], " ")
     record.insert(0, common.generate_random(table))
     table.append(record)
-    for i in table:
-        for element, l in enumerate(i):
-            i[element] = str(l)
+    common.lists_in_list_to_str(table)
     return table
 
 
 # Remove the record having the id @id_ from the @list, than return @table
-
-
 def remove(table, id_):
     for item in range(len(table)):
         if table[item][0] == id_[0]:
             del table[item]
-    return table
+            return table
+
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
 # than return @table
-
-
 def update(table, id_):
     for item in range(len(table)):
         list_in_list = table[item]
@@ -88,9 +82,7 @@ def update(table, id_):
             record = ui.get_inputs(["Name: ", "Producer: ", "Year: ", "Durability: "], " ")
             record.insert(0, id_[0])
             table[item] = record
-            for i in table:
-                for element, l in enumerate(i):
-                    i[element] = str(l)
+            common.lists_in_list_to_str(table)
             return table
 
 
@@ -99,14 +91,14 @@ def update(table, id_):
 
 # the question: Which items has not yet exceeded their durability ?
 # return type: list of lists (the inner list contains the whole row with their actual data types)
-
-
 def get_available_tools(table):
     now = date.today().year
     result_list = []
     for item in range(len(table)):
         list_in_list = table[item]
-        durability_date = int(list_in_list[3]) + int(list_in_list[4])
+        list_in_list[3] = int(list_in_list[3])
+        list_in_list[4] = int(list_in_list[4])
+        durability_date = list_in_list[3] + list_in_list[4]
         if now <= durability_date:
             result_list.append(list_in_list)
     return result_list
@@ -115,7 +107,18 @@ def get_available_tools(table):
 # the question: What are the average durability time for each manufacturer?
 # return type: a dictionary with this structure: { [manufacturer] : [avg] }
 def get_average_durability_by_manufacturers(table):
-
-    # your code
-
-    pass
+    manufact = {}
+    manufacturer = []
+    durability = []
+    num_of_manufacturer = {}
+    for item in range(len(table)):
+        list_in_list = table[item]
+        manufacturer.append(list_in_list[2])
+        durability.append(list_in_list[4])
+    for item in manufacturer:
+        num_of_manufacturer[item] = num_of_manufacturer.get(item, 0) + 1
+    for i in range(len(manufacturer)):
+        item = manufacturer[i]
+        time = int(durability[i])
+        manufact[item] = manufact.get(item, 0) + time/num_of_manufacturer[item]
+    return(manufact)

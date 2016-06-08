@@ -20,19 +20,19 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # start this manager by a menu
 def start_module():
     title = "HR"
-    exit_message = "Back to da future"
+    exit_message = "Exit to main menu"
     list_options = ["Show the table",
                     "Add to table",
                     "Remove from table",
                     "Update the table",
                     "Get the oldest person(s)",
-                    "Get the closest persons(s) to average",
-                    "Back to the main menu"]
+                    "Get the closest persons(s) to average"]
     while True:
         table = data_manager.get_table_from_file(current_file_path + "/persons.csv")
         ui.print_menu(title, list_options, exit_message)
+        path = current_file_path + "/persons. csv"
         inputs = ui.get_inputs(["\nEnter a num: "], " ")
-        user_input = int(inputs[0])
+        user_input = inputs[0]
         if user_input == 1:
             show_table(table)
         elif user_input == 2:
@@ -41,48 +41,57 @@ def start_module():
             id_ = ui.get_inputs(["Which ID do you want to remove? "], " ")
             remove(table, id_)
         elif user_input == 4:
-            id_ = ui.get_inputs(["Which ID dou you want to update? "], " ")
+            id_ = ui.get_inputs(["Which ID dou you want to update? "], " ")[0]
             update(table, id_)
         elif user_input == 5:
             get_oldest_person(table)
         elif user_input == 6:
             get_persons_closest_to_average(table)
         elif user_input == 0:
-            exit()
+            break
         else:
-            raise KeyError("Invalid target")
+            raise KeyError("There is no such option.")
         data_manager.write_table_to_file(current_file_path + "/persons.csv", table)
 
 
 # print the default table of records from the file
 def show_table(table):
-
-
+    title_list = ["ID", "Name", "Birth Date"]
+    ui.print_table(table, title_list)
     pass
 
 
 # Ask a new record as an input from the user than add it to @table, than return @table
 def add(table):
-
-
-
+    list_titles = ["Name: ", "Birth Date: "]
+    new_record = [common.generate_random(table)] + ui.get_inputs(list_titles, " ")
+    table.append(new_record)
+    for i in table:
+        for element, l in enumerate(i):
+            i[element] = str(l)
     return table
 
 
 # Remove the record having the id @id_ from the @list, than return @table
 def remove(table, id_):
-
-    # your code
-
+    for i in range(len(table)):
+        if table[i][0] == id_[0]:
+            del table[i]
+            break
     return table
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
 # than return @table
 def update(table, id_):
-
-    # your code
-
+    remove(table, id_)
+    list_titles = ["Name: ", "Birth Date: "]
+    new_record = ui.get_inputs(list_titles, " ")
+    new_record.insert(0, id_)
+    table.append(new_record)
+    for i in table:
+        for element, l in enumerate(i):
+            i[element] = str(l)
     return table
 
 
@@ -106,4 +115,4 @@ def get_persons_closest_to_average(table):
 
     pass
 
-start_module()
+# start_module()
