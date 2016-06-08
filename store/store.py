@@ -57,10 +57,7 @@ def add(table):
     record = ui.get_inputs(["title: ", "manufacturer: ", "price: ", "in_stock: "], " ")
     record.insert(0, common.generate_random(table))
     table.append(record)
-    for i in table:
-        for element, l in enumerate(i):
-            i[element] = str(l)
-    data_manager.write_table_to_file(current_file_path + "/games.csv", table)
+    common.lists_in_list_to_str(table)
     return table
 
 
@@ -78,12 +75,10 @@ def update(table, id_):
     for item in range(len(table)):
         list_in_list = table[item]
         if id_[0] == list_in_list[0]:
-            record = ui.get_inputs(["Name: ", "Producer: ", "Year: ", "Durability: "], " ")
+            record = ui.get_inputs(["title: ", "manufacturer: ", "price: ", "in_stock: "], " ")
             record.insert(0, id_[0])
             table[item] = record
-            for i in table:
-                for element, l in enumerate(i):
-                    i[element] = str(l)
+            common.lists_in_list_to_str(table)
             return table
 
 
@@ -93,15 +88,12 @@ def update(table, id_):
 # return type: a dictionary with this structure: { [manufacturer] : [count] }
 def get_counts_by_manufacturers(table):
 
-    # your code
-
     pass
 
 
 # the question: What is the average amount of games in stock of a given manufacturer?
 # return type: number
-def get_average_by_manufacturer(table, manufacturer):
 
-    # your code
+def get_average_by_manufacturer(table, manufacturer):
 
     pass
