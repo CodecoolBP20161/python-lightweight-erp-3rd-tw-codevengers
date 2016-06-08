@@ -18,12 +18,11 @@ data_manager = SourceFileLoader("data_manager", current_file_path + "/../data_ma
 common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
 
 
-
 # start this manager by a menu
 def start_module():
     table = data_manager.get_table_from_file(current_file_path + "/customers.csv")
     # print(table)
-    list_options = ["Show Table", "Add to table", "Remove from table", "Update table"]
+    list_options = ["Show Table", "Add to table", "Remove from table", "Update table", "Longest name", "Subscribed customers"]
     ui.print_menu("CRM menu", list_options, "Exit to main menu")
     inputs = ui.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
@@ -82,10 +81,16 @@ def remove(table, id_):
 # Update the record in @table having the id @id_ by asking the new data from the user,
 # than return @table
 def update(table, id_):
-
-    # your code
-
-    return table
+    for item in range(len(table)):
+        list_in_list = table[item]
+        if id_[0] == list_in_list[0]:
+            record = ui.get_inputs(["Name: ", "Email: ", "Subscribed: "], " ")
+            record.insert(0, id_[0])
+            table[item] = record
+            for i in table:
+                for element, l in enumerate(i):
+                    i[element] = str(l)
+            return table
 
 
 # special functions:
@@ -94,13 +99,12 @@ def update(table, id_):
 
 # the question: What is the id of the customer with the longest name ?
 # return type: string (id) - if there are more than one longest name, return the first of descending alphabetical order
-def get_longest_name_id(table):
-    glist = csv.reader(inputfile, delimiter="\t")
-    name = []
-    titles.append([row[1] for row in table])
-    titles = [item for slist in titles for item in slist]
-    return max(len(x) for x in titles)
-
+# def get_longest_name_id(table):
+#     glist = csv.reader(inputfile, delimiter="\t")
+#     name = []
+#     titles.append([row[1] for row in table])
+#     titles = [item for slist in titles for item in slist]
+#     return max(len(x) for x in titles)
 
 
 # the question: Which customers has subscribed to the newsletter?
