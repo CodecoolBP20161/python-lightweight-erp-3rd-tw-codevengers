@@ -60,9 +60,7 @@ def add(table):
     record = ui.get_inputs(["Name: ", "Producer: ", "Year: ", "Durability: "], " ")
     record.insert(0, common.generate_random(table))
     table.append(record)
-    for i in table:
-        for element, l in enumerate(i):
-            i[element] = str(l)
+    common.lists_in_list_to_str(table)
     return table
 
 
@@ -83,9 +81,7 @@ def update(table, id_):
             record = ui.get_inputs(["Name: ", "Producer: ", "Year: ", "Durability: "], " ")
             record.insert(0, id_[0])
             table[item] = record
-            for i in table:
-                for element, l in enumerate(i):
-                    i[element] = str(l)
+            common.lists_in_list_to_str(table)
             return table
 
 
