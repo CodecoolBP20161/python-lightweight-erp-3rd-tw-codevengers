@@ -44,9 +44,10 @@ def start_module():
         elif option == 6:
             get_average_durability_by_manufacturers(table)
         elif option == 0:
-            exit()
+            break
         else:
             raise KeyError("There is no such option.")
+        common.lists_in_list_to_str(table)
         data_manager.write_table_to_file(current_file_path + "/tools.csv", table)
 
 
@@ -69,7 +70,7 @@ def remove(table, id_):
     for item in range(len(table)):
         if table[item][0] == id_[0]:
             del table[item]
-    return table
+            return table
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
@@ -95,7 +96,9 @@ def get_available_tools(table):
     result_list = []
     for item in range(len(table)):
         list_in_list = table[item]
-        durability_date = int(list_in_list[3]) + int(list_in_list[4])
+        list_in_list[3] = int(list_in_list[3])
+        list_in_list[4] = int(list_in_list[4])
+        durability_date = list_in_list[3] + list_in_list[4]
         if now <= durability_date:
             result_list.append(list_in_list)
     return result_list
