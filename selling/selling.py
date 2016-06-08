@@ -122,7 +122,6 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
         for l in range(3, len(i)):
             i[l] = int(i[l])
     for i, element in enumerate(table):
-        print(element[-1])
         if element[-1] > year_from and element[-1] < year_to:
             filtered_table.append(element)
         elif element[-1] == year_from:
