@@ -24,7 +24,8 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 def start_module():
     while True:
         table = data_manager.get_table_from_file(current_file_path + "/tools.csv")
-        list_options = ["Show Table", "Add to table", "Remove from table", "Update table"]
+        list_options = ["Show Table", "Add to table", "Remove from table", "Update table", "Get available tools",
+                        "Get average durability by manufacturers"]
         ui.print_menu("Tool manager menu", list_options, "Exit to main menu")
         inputs = ui.get_inputs(["Please enter a number: "], "")
         option = inputs[0]
@@ -39,9 +40,9 @@ def start_module():
             id_ = ui.get_inputs(["Please enter an ID: "], "")
             update(table, id_)
         elif option == 5:
-            get_lowest_price_item_id(table)
+            get_available_tools(table)
         elif option == 6:
-            get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to)
+            get_average_durability_by_manufacturers(table)
         elif option == 0:
             exit()
         else:
@@ -101,10 +102,14 @@ def update(table, id_):
 
 
 def get_available_tools(table):
-
-    # your code
-
-    pass
+    now = date.today().year
+    result_list = []
+    for item in range(len(table)):
+        list_in_list = table[item]
+        durability_date = int(list_in_list[3]) + int(list_in_list[4])
+        if now <= durability_date:
+            result_list.append(list_in_list)
+    return result_list
 
 
 # the question: What are the average durability time for each manufacturer?
@@ -114,4 +119,3 @@ def get_average_durability_by_manufacturers(table):
     # your code
 
     pass
-start_module()
