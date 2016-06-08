@@ -22,7 +22,8 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 def start_module():
     while True:
         table = data_manager.get_table_from_file(current_file_path + "/customers.csv")
-        list_options = ["Show Table", "Add to table", "Remove from table", "Update table", "Longest name", "Subscribed customers"]
+        list_options = ["Show Table", "Add to table", "Remove from table",
+                        "Update table", "Longest name", "Subscribed customers"]
         ui.print_menu("CRM menu", list_options, "Exit to main menu")
         inputs = ui.get_inputs(["Please enter a number: "], "")
         option = inputs[0]
@@ -41,9 +42,10 @@ def start_module():
             ui.print_table([[name]], ['The longest name ID is:'])
         elif option == 6:
             subscribed = (get_subscribed_emails(table))
-            ui.print_table(subscribed, ['The following customers subscribed:'])
+            subscribed_to_printout = [[element] for element in subscribed]
+            ui.print_table(subscribed_to_printout, ['The following customers subscribed:'])
         elif option == 0:
-            exit()
+            break
         else:
             raise KeyError("There is no such option.")
         data_manager.write_table_to_file(current_file_path + "/customers.csv", table)
@@ -113,7 +115,5 @@ def get_subscribed_emails(table):
     subscribers = []
     for line in table:
         if '1' in line[3]:
-            subscribers.append([line[2] + ';' + line[1]])
+            subscribers.append(line[2] + ';' + line[1])
     return(subscribers)
-
-# start_module()
