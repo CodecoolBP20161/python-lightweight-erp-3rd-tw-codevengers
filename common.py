@@ -28,3 +28,10 @@ def generate_random(table):
         if string not in table:
             not_unique = False
     return(string)
+
+
+def lists_in_list_to_str(list_to_convert):
+    for lists in list_to_convert:
+        for i, element in enumerate(lists):
+            lists[i] = str(element)
+    return list_to_convert
