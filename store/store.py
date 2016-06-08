@@ -31,17 +31,17 @@ def start_module():
         elif option == 2:
             add(table)
         elif option == 3:
-            id_ = ui.get_inputs(["Please enter an ID: "], "")
+            id_ = ui.get_inputs(["Please enter an ID: "], "")[0]
             remove(table, id_)
         elif option == 4:
-            id_ = ui.get_inputs(["Please enter an ID: "], "")
+            id_ = ui.get_inputs(["Please enter an ID: "], "")[0]
             update(table, id_)
         elif option == 5:
             get_lowest_price_item_id(table)
         elif option == 6:
             get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to)
         elif option == 0:
-            exit()
+            break
         else:
             raise KeyError("There is no such option.")
         data_manager.write_table_to_file(current_file_path + "/games.csv", table)
@@ -64,9 +64,9 @@ def add(table):
 # Remove the record having the id @id_ from the @list, than return @table
 def remove(table, id_):
     for item in range(len(table)):
-        if table[item][0] == id_[0]:
+        if table[item][0] == id_:
             del table[item]
-    return table
+            return table
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
@@ -74,9 +74,9 @@ def remove(table, id_):
 def update(table, id_):
     for item in range(len(table)):
         list_in_list = table[item]
-        if id_[0] == list_in_list[0]:
+        if id_ == list_in_list[0]:
             record = ui.get_inputs(["title: ", "manufacturer: ", "price: ", "in_stock: "], " ")
-            record.insert(0, id_[0])
+            record.insert(0, id_)
             table[item] = record
             common.lists_in_list_to_str(table)
             return table
