@@ -77,8 +77,8 @@ def remove(table, id_):
     for i in range(len(table)):
         if table[i][0] == id_[0]:
             del table[i]
+            return table
             break
-    return table
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
@@ -89,9 +89,7 @@ def update(table, id_):
     new_record = ui.get_inputs(list_titles, " ")
     new_record.insert(0, id_)
     table.append(new_record)
-    for i in table:
-        for element, l in enumerate(i):
-            i[element] = str(l)
+    common.lists_in_list_to_str(table)
     return table
 
 

@@ -82,7 +82,7 @@ def remove(table, id_):
     for i, l in enumerate(table):
         if id_ == l[0]:
             del table[i]
-    return table
+            return table
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
