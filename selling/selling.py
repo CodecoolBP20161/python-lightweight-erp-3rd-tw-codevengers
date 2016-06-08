@@ -73,9 +73,7 @@ def add(table):
     add_records = ui.get_inputs(list_titles, "")
     add_records.insert(0, common.generate_random(table))
     table.append(add_records)
-    for i in table:
-        for element, l in enumerate(i):
-            i[element] = str(l)
+    common.lists_in_list_to_str(table)
     return table
 
 
@@ -95,9 +93,7 @@ def update(table, id_):
     add_records = ui.get_inputs(list_titles, "")
     add_records.insert(0, id_)
     table.append(add_records)
-    for i in table:
-        for element, l in enumerate(i):
-            i[element] = str(l)
+    common.lists_in_list_to_str(table)
     return table
 
 
@@ -141,7 +137,5 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
             elif element[-3] == month_to:
                 if element[-2] < day_to:
                     filtered_table.append(element)
-    for i in table:
-        for element, l in enumerate(i):
-            i[element] = str(l)
+    common.lists_in_list_to_str(table)
     return filtered_table
