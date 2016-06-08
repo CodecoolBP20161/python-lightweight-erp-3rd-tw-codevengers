@@ -31,8 +31,9 @@ def start_module():
     while True:
         table = data_manager.get_table_from_file(current_file_path + "/persons.csv")
         ui.print_menu(title, list_options, exit_message)
+        path = current_file_path + "/persons. csv"
         inputs = ui.get_inputs(["\nEnter a num: "], " ")
-        user_input = int(inputs[0])
+        user_input = inputs[0]
         if user_input == 1:
             show_table(table)
         elif user_input == 2:
@@ -48,7 +49,7 @@ def start_module():
         elif user_input == 6:
             get_persons_closest_to_average(table)
         elif user_input == 0:
-            exit()
+            break
         else:
             raise KeyError("There is no such option.")
         data_manager.write_table_to_file(current_file_path + "/persons.csv", table)
@@ -63,17 +64,23 @@ def show_table(table):
 
 # Ask a new record as an input from the user than add it to @table, than return @table
 def add(table):
-
-
-
+    list_titles = ["Name: ", "Birth Date: "]
+    new_item = [common.generate_random(table)] + ui.get_inputs(list_titles, " ")
+    table.append(new_item)
+    for i in table:
+        for element, l in enumerate(i):
+            i[element] = str(l)
     return table
 
 
 # Remove the record having the id @id_ from the @list, than return @table
 def remove(table, id_):
-
-    # your code
-
+    id = ui.get_inputs(["ID: "], "Enter an ID: ")
+    for i in range(len(table)):
+        if table[i][0] == id_[0]:
+            del table[i]
+            break
+    data_manager.write_table_to_file(current_file_path + "/persons.csv", table)
     return table
 
 
@@ -106,4 +113,4 @@ def get_persons_closest_to_average(table):
 
     pass
 
-start_module()
+# start_module()
