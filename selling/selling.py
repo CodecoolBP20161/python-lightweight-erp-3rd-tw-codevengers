@@ -50,9 +50,12 @@ def start_module():
             lowest_price_ID = get_lowest_price_item_id(table)
             ui.print_table([[lowest_price_ID]], ["Lowest price"])
         elif option == 6:
-            get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to)
+            list_titles = ["Start month: ", "Start day: ", "Start year: ", "End month:  ", "End day: ", "End year: "]
+            dates = ui.get_inputs(list_titles, "")
+            filtered_table = get_items_sold_between(table, dates[0], dates[1], dates[2], dates[3], dates[4], dates[5])
+            show_table(filtered_table)
         elif option == 0:
-            exit()
+            break
         else:
             raise KeyError("There is no such option.")
         data_manager.write_table_to_file(current_file_path + "/sellings.csv", table)
@@ -118,6 +121,27 @@ def get_lowest_price_item_id(table):
 # the question: Which items are sold between two given dates ? (from_date < birth_date < to_date)
 # return type: list of lists (the filtered table)
 def get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to):
-    pass
-
-start_module()
+    filtered_table = []
+    for i in table:
+        for l in range(3, len(i)):
+            i[l] = int(i[l])
+    for i, element in enumerate(table):
+        print(element[-1])
+        if element[-1] > year_from and element[-1] < year_to:
+            filtered_table.append(element)
+        elif element[-1] == year_from:
+            if element[-3] > month_from:
+                filtered_table.append(element)
+            elif element[-3] == month_from:
+                if element[-2] > day_from:
+                    filtered_table.append(element)
+        elif element[-1] == year_to:
+            if element[-3] < month_to:
+                filtered_table.append(element)
+            elif element[-3] == month_to:
+                if element[-2] < day_to:
+                    filtered_table.append(element)
+    for i in table:
+        for element, l in enumerate(i):
+            i[element] = str(l)
+    return filtered_table
